@@ -1,12 +1,13 @@
 from django.http import request
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Post, Comment
+from .models import Profile, Post, Comment, Like
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm, CommentForm, PostForm
 from django.contrib import messages
 from django .contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.utils import timezone
 
 
 # Create your views here.
@@ -33,7 +34,7 @@ def loginPage(request):
         user = authenticate(request,username = username,password= password)
         if user is not None:
             login(request,user)
-            return redirect('auth')
+            return redirect('post_list')
             
         else:
             messages.info(request,'Username or password is incorrect')
@@ -50,13 +51,13 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def logincup(request):
-    return render(request,'index.html')
+    return render(request,'post.html')
 
 
 def userPage(request):
     context = {}
 
-    return render(request,'accounts/user.html',context)
+    return render(request,'post.html',context)
 
 
 
@@ -99,7 +100,7 @@ def create_post(request):
         return redirect('post_list')
     else:
         form = PostForm()
-    return render(request,'create_post.html',{'form':form})
+    return render(request,'createpost.html',{'form':form})
 
 
 
@@ -153,3 +154,33 @@ def index(request):
     current_user = request.GET.get('user')
     logged_in_user = request.user.username
     return render(request,'index.html',{'current_user':current_user})
+
+@login_required(login_url='login')
+def post(request):
+    posts = Post.objects.all().filter(created_date__lte = timezone.now()).order_by('-created_date')
+    user = request.user
+
+    return render(request,'post.html',{'posts':posts,'user':user})
+
+
+def like_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        phone_post = Post.objects.get(id= post_id)
+
+        if user in phone_post.liked.all():
+            phone_post.liked.remove(user)
+        else:
+            phone_post.liked.add(user)
+
+        like, created = Like.objects.get_or_create(user=user, post_id = post_id)
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+
+        like.save()
+
+    return redirect('post_list')

@@ -24,15 +24,10 @@
                   <button class="button is-danger" >unlike</button>
                   {%endif%}
                 </form>
-                <small style="color: rgb(16, 95, 95); font-style: italic;">{{post.liked.all.count}}</small>
+                <small style="color: black; font-style: italic;">{{post.liked.all.count}}</small>
 
                 
-                
-                <i class="bi bi-chat-dots"></i>
-                <i class="bi bi-download"></i>
-                <a href="{% url 'followers_count' %}"><button class="button is-primary">Follow</button></a>
-                <i class="bi bi-file-arrow-down" id="file"></i>
-                
+                                
 
               </div>
               
@@ -52,9 +47,9 @@
               </div>
 
               <div class="media-content" id="div">
-              <p class="title is-4" style="color: rgb(16, 95, 69);">{{ post.author }}</p>
-              <p class="subtitle is-6"style="color: rgb(16, 95, 69);" >{{ post.caption }}</p>
-              <p class="subtitle is-8" style="color: rgb(16, 95, 69);">{{ post.created_date | timesince }}</p>
+              <p class="title is-4" style="color: black;">{{ post.author }}</p>
+              <p class="subtitle is-6" style="color: black;" >{{ post.caption }}</p>
+              <p class="subtitle is-8" style="color:black;">{{ post.created_date | timesince }}</p>
 
 
               <h2>comments......  </h2>
@@ -72,8 +67,8 @@
 
                 {%endif%}
 
-                <a href="{% url 'add-comment' post.id%}"><button class="button is-info"  style="text-transform: capitalize; font-style: italic;">add comment</button></a>
-                <a href="{% url 'delete-comment' post.id%}"><button class="button is-danger" style="text-transform: capitalize; font-style: italic; text-decoration: none;">delete</button></a>
+                <a href="{% url 'add-comment' post.id%}" style= "text-decoration: none;"><button class="button is-warning m-2"  style="text-transform: capitalize; font-style: bold; text-decoration:none">Add comment</button></a>
+                <a href="{% url 'delete-comment' post.id%}" style= "text-decoration: none;"><button class="button is-danger m-2" style="text-transform: capitalize; font-style: bold; text-decoration: none;">Delete</button></a>
                 
                 
                 </div>
@@ -138,9 +133,9 @@
 #div{
 
   padding: 0 2rem;
-  color: rgb(16, 95, 69); 
+  color: black; 
   text-transform: capitalize; 
-  font-style: italic;
+  
   font-family: 'Open Sans', sans-serif;
 }
 h2 {
@@ -149,7 +144,7 @@ h2 {
   
 }
 p{
-  color: rgb(16, 95, 69);
+  color: black;
 }
 
 </style>
