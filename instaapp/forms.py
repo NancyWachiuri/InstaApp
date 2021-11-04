@@ -30,7 +30,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     helper = FormHelper()
     helper.form_method = 'POST'
-    helper.add_input(Submit('post', 'post',css_class = 'btn btn-success'))
+    helper.add_input(Submit('post', 'post',css_class = 'btn btn-warning m-2' ))
 
     class Meta:
         model = Post
