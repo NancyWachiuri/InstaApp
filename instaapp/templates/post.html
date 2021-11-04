@@ -1,0 +1,160 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half">
+        
+              {% for post in posts %}
+        <div class="card">
+          
+            <div class="card-image">
+              <figure class="image is-4by3">
+                {% if post.image %}
+                <img src="{{post.image.url}}" alt="Placeholder image"><br>
+                {% endif %}
+              </figure>
+              <div class="content" id="content">
+                <form action="{% url 'like-post' %}" method="POST" >
+                  {% csrf_token %}
+                  <input type="hidden" name="post_id" value="{{post.id}}">
+                  {% if user not in post.liked.all %}
+                  <button class="button is-success" >like</button>
+                  {% else %}
+                  <button class="button is-danger" >unlike</button>
+                  {%endif%}
+                </form>
+                <small style="color: rgb(16, 95, 95); font-style: italic;">{{post.liked.all.count}}</small>
+
+                
+                
+                <i class="bi bi-chat-dots"></i>
+                <i class="bi bi-download"></i>
+                <a href="{% url 'followers_count' %}"><button class="button is-primary">Follow</button></a>
+                <i class="bi bi-file-arrow-down" id="file"></i>
+                
+
+              </div>
+              
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left">
+                    <figure class="image is-48x48">
+                      {% if post.image %}
+                      <img src="{{post.image.url}}" alt="Placeholder image">
+                      {% endif %}
+                    </figure>
+                  </div>
+                  
+                </div>
+            
+                
+              </div>
+
+              <div class="media-content" id="div">
+              <p class="title is-4" style="color: rgb(16, 95, 69);">{{ post.author }}</p>
+              <p class="subtitle is-6"style="color: rgb(16, 95, 69);" >{{ post.caption }}</p>
+              <p class="subtitle is-8" style="color: rgb(16, 95, 69);">{{ post.created_date | timesince }}</p>
+
+
+              <h2>comments......  </h2>
+              {% if not post.comments.all %}
+                <p>No Comments Yet... </p>
+
+                {% else %}
+
+                {% for comment in post.comments.all %}
+
+                <h2>{{comment.name}}</h2>
+                <p>{{comment.comment_body}}</p>
+                <p>{{comment.date_added}}</p>
+                {%endfor%}
+
+                {%endif%}
+
+                <a href="{% url 'add-comment' post.id%}"><button class="button is-info"  style="text-transform: capitalize; font-style: italic;">add comment</button></a>
+                <a href="{% url 'delete-comment' post.id%}"><button class="button is-danger" style="text-transform: capitalize; font-style: italic; text-decoration: none;">delete</button></a>
+                
+                
+                </div>
+               
+                
+              
+              
+              
+            </div>
+            
+          </div><br><br>
+         
+          {% endfor %}
+            </div>
+            
+
+            </div>
+            
+    </div>
+    
+
+</section>
+
+
+
+  
+  
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+#content{
+  display: inline-block;
+  margin: 4px 0px 0px;
+  padding: 0px 14px;
+  width: 90%;
+  font-size: 2rem;
+}
+
+#content i{
+  display: inline-block;
+  padding:0 2rem;
+  
+}
+#file{
+  float: right;
+  
+ 
+}
+#div{
+
+  padding: 0 2rem;
+  color: rgb(16, 95, 69); 
+  text-transform: capitalize; 
+  font-style: italic;
+  font-family: 'Open Sans', sans-serif;
+}
+h2 {
+  font-size: 1.6rem;
+  font-weight: 100;
+  
+}
+p{
+  color: rgb(16, 95, 69);
+}
+
+</style>
+
+
+
+
+{%endblock%}
