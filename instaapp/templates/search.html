@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+
+<div class="container">
+    {% if categories %}
+
+    {% for post in categories %}
+      <div class="col-md-6 col-lg-3 col-12 col-sm-12">
+          <div class="row m-1 mb-3">
+              <div class="card  ">
+                  <img  class="image-thumbnail img-fluid mt-3" src="{{post.image.url}}" alt="Card image cap">
+                  <h5 class="centered">{{post.author}}</h5>
+                  <div class="card-body">
+                      <p class="card-text"> {{post.caption}}</p>
+                  </div>
+                </div>
+          </div>
+      </div>
+      {% endfor %}
+      {%endif%}
+    
+    </div>
+  
+
+{%endblock%}

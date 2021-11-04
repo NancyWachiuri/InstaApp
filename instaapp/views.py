@@ -125,7 +125,7 @@ def add_comment(request,pk):
     context = {
         'form':form
     }
-    return render(request,'tag.html',context)
+    return render(request,'postdetail.html',context)
 
 
 
