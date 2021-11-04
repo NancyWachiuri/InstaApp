@@ -12,6 +12,13 @@ urlpatterns =[
     path('user/',views.logoutUser,name='logout'),
     path('',views.logincup,name='auth'),
     path('profile/', views.profile, name='profile'),
+    path('post/', views.post, name='post_list'),
+    path('new/', views.create_post, name='post'),
+    path('',views.post,name='post_list'),
+    path('add-comment/<int:pk>/', views.add_comment, name='add-comment'),
+    path('delete-comment/<int:pk>/', views.delete_comment, name='delete-comment'),
+    path('like/', views.like_post, name='like-post'),
+    path('search_results/',views.search_results, name='search_results'),
 
 
 ]
