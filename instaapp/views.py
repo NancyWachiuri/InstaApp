@@ -2,7 +2,6 @@ from django.http import request
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
-from .decorators import unauthenticated_user
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django .contrib.auth import authenticate, login,logout
@@ -11,7 +10,6 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-@unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
@@ -25,7 +23,7 @@ def registerPage(request):
 
     context = {'form': form}
     return render(request,'accounts/register.html',context)
-@unauthenticated_user
+
 def loginPage(request):
     if request.method == 'POST':
         username=request.POST.get('username')
