@@ -1,0 +1,51 @@
+{% extends 'accounts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <section class="section">
+    <div class="container">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half">
+
+  <div class="card">
+    <div class="card-image">
+      <figure class="image is-4by3">
+        <img src="{{ user.profile.image.url }}" alt="Placeholder image">
+      </figure>
+    </div>
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+          <p class="title is-4" >{{user.username}}</p>
+          <p class="subtitle is-6">{{user.email}}</p>
+        </div>
+      </div>
+
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">
+            profile
+          </legend>
+          {{ u_form|crispy }}
+          {{ p_form|crispy }}
+  
+        </fieldset>
+        <div class="form-group">
+  
+          <button class="button is-link is-info" type="submit">updated</button>
+        </div>
+  
+  </form>
+  
+    </div>
+  </div>
+
+            </div>
+        </div>
+    </div>
+  </section>
+
+
+{% endblock %}
